@@ -2,9 +2,7 @@ package mot;
 import java.io.*;
 public class Reading
 {
-    public Reading(){
-
-    }
+    public Reading(){ }
 
   public Object[][] ReadFichier(File file){
     try

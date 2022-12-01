@@ -1,4 +1,4 @@
-// package mot;
+ // package mot;
 
 // import Fonction.Fonction;
 // import java.util.*;

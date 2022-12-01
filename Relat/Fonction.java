@@ -274,6 +274,87 @@ public class Fonction {
                     }
                 }
             }
+            Vector v2= new Vector();
+            for (int i = 0; i <T1.length; i++) {
+                int manisa=0;
+                for (int j = 0; j < T2.length; j++) {
+                    for (int k = 0; k < F2.length; k++) {
+                        if(T1[i][k].equals(T2[j][(int)v.get(k)])){
+                            manisa++;
+
+                            if(manisa==F2.length){
+                                v2.add(i);
+                            }
+                        }
+                    }
+                }
+            }
+            Object[][] rep= new Object[v2.size()][F1.length];
+            for (int i = 0; i < rep.length; i++) {
+                for (int j = 0; j < rep[i].length; j++) {
+                    rep[i][j]= T1[(int)v2.get(i)][j];
+                }
+            }
+            Afficher(rep);
+        }
+    }
+
+    public void CreateTable(String NomTable, String NomColonnes){
+        try {
+            String[] transform= NomColonnes.split(" ");
+            String content = "";
+            for (int i = 0; i < transform.length; i++) {
+                if(i == 0){
+                    content=transform[i];
+                }
+                if(i > 0){
+                    content= content + "%%" + transform[i];
+                }
+            }
+            File file = new File(NomTable+".txt");
+            if (!file.exists()) {
+            file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(content);
+            bw.close();
+            System.out.println("Nom des colonnes: " + content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void Insert(String NomTable, String NomColonnes){
+        try {
+            String[] transform= NomColonnes.split(" ");
+            String content = transform[0];
+            if(transform.length==1){
+                content= content + ";";
+            }
+            else{
+                for (int i = 1; i < transform.length; i++) {
+                    if(i == transform.length-1){
+                        content=content + "%%" + transform[i] +";";
+                    }
+                    else{
+                        content=content + "%%" + transform[i];
+                    }
+                }
+            }
+            File file = new File(NomTable+"Values.txt");
+           
+            if (!file.exists()) {
+            file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(content);
+            bw.newLine();
+            bw.close();
+            System.out.println("Nom des colonnes: " + content);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
