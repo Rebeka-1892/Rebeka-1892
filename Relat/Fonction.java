@@ -5,14 +5,74 @@ import java.io.*;
 import java.util.*;
 
 public class Fonction {
+    // public Object[][] enlevDoublure(Table t) throws Exception {
+    //     Object[][] lo = t.getData();
+    //     EcritLire e = new EcritLire();
+    //     Object[] type = e.getTypesTableInFile(t.getNom());
+    //     Object[][] vitatri = lo;
+    //     Vector ligneVect = new Vector();
+    //     Object[] ligneInitial = vitatri[0];
+    //     ligneVect.add(ligneInitial);
 
-    public void Afficher(Object[][] rep){
-        for (Object[] objects : rep) {
-            for (Object object : objects) {
-                System.out.print("| "+object+" |");
+    //     for (int i = 0; i < vitatri.length; i++) {
+    //         //System.out.println(isDoublure(ligneInitial, vitatri[i]));
+    //         if(isDoublureString(ligneInitial, vitatri[i]) == false) {
+    //             ligneInitial = vitatri[i];
+    //             ligneVect.add(ligneInitial);
+    //         }
+    //     }
+
+    //     Object[][]rep = vectorToObj2Dim(ligneVect);
+    //     return rep; 
+    // }
+
+    public void DeleteDoublons(Object[][] obj){
+        String[] strings= new String[obj.length];
+        for (int i = 0; i < obj.length; i++) {
+            strings[i]="";
+            for (int j = 0; j < obj[i].length; j++) {
+                strings[i]=strings[i]+ obj[i][j] + " ";
             }
-            System.out.println();
-          }
+        }
+        // System.out.println(strings.length);
+        // Vector vect= new Vector();
+        // for (int i = 0; i < strings.length; i++) {
+        //     int j=0;
+        //     if(!strings[i].equalsIgnoreCase(strings[j])){
+        //         System.out.println(!strings[i].equalsIgnoreCase(strings[j]));
+        //         System.out.println(strings[i]);
+        //         vect.add(i);
+        //     }
+        // }
+        // Object[][] retour = new Object[vect.size()][obj[0].length];
+        // System.out.println(retour.length);
+        // for (int i = 0; i < obj.length; i++) {
+        //     for (int j = 0; j < obj[0].length; j++) {
+        //         retour[i][j]= obj[(int) vect.get(i)][j];
+        //     }
+        // }
+        // return retour;
+        // liste d'entrée avec doublons
+        List<String> listWithDuplicates = new ArrayList<>(Arrays.asList(strings));
+ 
+        // construit un ensemble à partir des éléments de la liste
+        Set<String> set = new LinkedHashSet<>(listWithDuplicates);
+ 
+        // construit une nouvelle liste à partir d'un ensemble et l'affiche
+        List<String> listWithoutDuplicates = new ArrayList<>(set);
+        
+        System.out.println(listWithoutDuplicates);
+    }
+
+    public void Afficher(Object[][] obj){
+        DeleteDoublons(obj);
+    //     // Object[][] rep= DeleteDoublons(obj);
+    //     // for (Object[] objects : rep) {
+    //     //     for (Object object : objects) {
+    //     //         System.out.print("| "+object+" |");
+    //     //     }
+    //     //     System.out.println();
+    //     // }
     }
 
     public Object[][] Projection(Object[][] obj, String[] fields, String[] col) {
