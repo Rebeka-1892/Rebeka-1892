@@ -45,4 +45,21 @@ public class Reading
     }
     return null;
   }
+
+  public String[] LireNomFichhiers(){
+    File dir  = new File("Database");
+      File[] liste = dir.listFiles();
+      String nomFile="";
+      for(File item : liste){
+        if(item.isFile())
+        { 
+          nomFile = nomFile + item.getName();
+        } 
+      }
+      String[] rep = nomFile.split(".txt");
+      // for(String reponse : rep){
+      //   System.out.println(reponse);
+      // }
+      return rep;
+  }
 }

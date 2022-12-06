@@ -1,0 +1,3 @@
+20%%Michou%%Feminin;
+18%%Minou%%Masculin;
+5%%Bouba%%Masculin;

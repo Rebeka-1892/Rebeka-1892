@@ -1,13 +1,8 @@
 package Fonction;
+import mot.Reading;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.text.CharacterIterator;
-import java.util.*;
 import java.io.*;
-
-import objet.Objet;
+import java.util.*;
 
 public class Fonction {
 
@@ -65,7 +60,7 @@ public class Fonction {
                             try {
                                 if (ValCond[i].equalsIgnoreCase(obj[k][j].toString())) {
                                     manisa++;
-                                    System.out.println(obj[k][j]);
+                                    // System.out.println(obj[k][j]);
                                 }
                                 if (manisa == condition.length) {
                                     indice.add(k);
@@ -177,15 +172,19 @@ public class Fonction {
         Object[][] R3= Projection(R1, f1, c1);
         System.out.println("|"+c2[0]+"|");
         Object[][] R4= Projection(R2, f2, c2);
+
         System.out.println("____Cartesien____");
         System.out.println("|"+c2[0]+"||"+c1[0]+"|");
         Object[][] R5=Cartesien(R4, R3);
+
         System.out.println("____Difference____");
         System.out.println("|"+c2[0]+"||"+c1[0]+"|");
         Object[][] R6=Difference(R5, f1, R2, f2);
+
         System.out.println("____Projection____");
         System.out.println("|"+c2[0]+"|");
         Object[][] R7=Projection(R6, f2, c2);
+
         System.out.println("____Difference____");
         System.out.println("|"+c2[0]+"|");
         Object[][] R8=Difference(R4, c2, R7, c2);
@@ -264,7 +263,7 @@ public class Fonction {
         return rep;
     }
 
-    public void Intersection(Object[][] T1, String[] F1, Object[][] T2, String[] F2){
+    public Object[][] Intersection(Object[][] T1, String[] F1, Object[][] T2, String[] F2){
         if(F1.length==F2.length){
             Vector v= new Vector();
             for (int i = 0; i < F1.length; i++) {
@@ -296,12 +295,14 @@ public class Fonction {
                 }
             }
             Afficher(rep);
+            return rep;
         }
+        return null;
     }
 
-    public void CreateTable(String NomTable, String NomColonnes){
+    public Object[][] CreateTable(String NomTable, String NomColonnes){
         try {
-            String[] transform= NomColonnes.split(" ");
+            String[] transform= NomColonnes.split(",");
             String content = "";
             for (int i = 0; i < transform.length; i++) {
                 if(i == 0){
@@ -311,7 +312,7 @@ public class Fonction {
                     content= content + "%%" + transform[i];
                 }
             }
-            File file = new File(NomTable+".txt");
+            File file = new File("Database\\"+NomTable+"_Field.txt");
             if (!file.exists()) {
             file.createNewFile();
             }
@@ -319,15 +320,18 @@ public class Fonction {
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(content);
             bw.close();
-            System.out.println("Nom des colonnes: " + content);
+            Reading reading= new Reading();
+            Afficher(reading.ReadFichier(file));
+            return reading.ReadFichier(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    public void Insert(String NomTable, String NomColonnes){
+    public Object[][] Insert(String NomTable, String NomColonnes){
         try {
-            String[] transform= NomColonnes.split(" ");
+            String[] transform= NomColonnes.split(",");
             String content = transform[0];
             if(transform.length==1){
                 content= content + ";";
@@ -342,7 +346,7 @@ public class Fonction {
                     }
                 }
             }
-            File file = new File(NomTable+"Values.txt");
+            File file = new File("Database\\"+NomTable+".txt");
            
             if (!file.exists()) {
             file.createNewFile();
@@ -352,9 +356,12 @@ public class Fonction {
             bw.write(content);
             bw.newLine();
             bw.close();
-            System.out.println("Nom des colonnes: " + content);
+            Reading reading= new Reading();
+            Afficher(reading.ReadFichier(file));
+            return reading.ReadFichier(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
