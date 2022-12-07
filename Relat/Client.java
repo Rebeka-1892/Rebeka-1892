@@ -6,12 +6,13 @@ import java.net.Socket;
 import java.util.Scanner;
 
 import Fonction.Fonction;
+import mot.Vocabulaire;
 
 import java.io.*;
 
 public class Client {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         final Socket clientSocket;
         final BufferedReader in;
         final PrintWriter out;
@@ -23,6 +24,8 @@ public class Client {
             clientSocket = new Socket(IP, port);
             System.out.println("serveur trouve : "+IP);
 
+            Vocabulaire Vocabulaire = new Vocabulaire();
+            
             // flux pour envoyer
             out = new PrintWriter(clientSocket.getOutputStream());
             // flux pour recevoir
@@ -30,7 +33,7 @@ public class Client {
 
             Thread envoyer = new Thread(new Runnable() {
                 String msg;
-                     
+
                 @Override
                 public void run() {
                     while (true) {
@@ -59,6 +62,7 @@ public class Client {
 
                                 Fonction f = new Fonction();
                                 f.Afficher(rep);
+                                Vocabulaire Vocabulaire = new Vocabulaire();
 
                             } catch (Exception e) {
                                 System.err.println(e);

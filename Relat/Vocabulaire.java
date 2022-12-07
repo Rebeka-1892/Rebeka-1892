@@ -15,11 +15,12 @@ public class Vocabulaire{
 
     public Vocabulaire() throws Exception{
         Field[] fields = this.getClass().getDeclaredFields();
+        System.out.println("-----------------------------------------------------------------------------------------------------------");
         for (int i = 0; i < fields.length; i++) {
             Field f = fields[i];
             f.setAccessible(true);
-            System.out.println(f.getName() + " : " + f.get(this));
+            System.out.println("|"+f.getName() + " : " + f.get(this));
         }
-        System.out.println();
+        System.out.println("-----------------------------------------------------------------------------------------------------------");
     }
 }

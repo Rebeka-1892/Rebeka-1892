@@ -5,28 +5,8 @@ import java.io.*;
 import java.util.*;
 
 public class Fonction {
-    // public Object[][] enlevDoublure(Table t) throws Exception {
-    //     Object[][] lo = t.getData();
-    //     EcritLire e = new EcritLire();
-    //     Object[] type = e.getTypesTableInFile(t.getNom());
-    //     Object[][] vitatri = lo;
-    //     Vector ligneVect = new Vector();
-    //     Object[] ligneInitial = vitatri[0];
-    //     ligneVect.add(ligneInitial);
 
-    //     for (int i = 0; i < vitatri.length; i++) {
-    //         //System.out.println(isDoublure(ligneInitial, vitatri[i]));
-    //         if(isDoublureString(ligneInitial, vitatri[i]) == false) {
-    //             ligneInitial = vitatri[i];
-    //             ligneVect.add(ligneInitial);
-    //         }
-    //     }
-
-    //     Object[][]rep = vectorToObj2Dim(ligneVect);
-    //     return rep; 
-    // }
-
-    public void DeleteDoublons(Object[][] obj){
+    public Object[][] DeleteDoublons(Object[][] obj){
         String[] strings= new String[obj.length];
         for (int i = 0; i < obj.length; i++) {
             strings[i]="";
@@ -34,45 +14,35 @@ public class Fonction {
                 strings[i]=strings[i]+ obj[i][j] + " ";
             }
         }
-        // System.out.println(strings.length);
-        // Vector vect= new Vector();
-        // for (int i = 0; i < strings.length; i++) {
-        //     int j=0;
-        //     if(!strings[i].equalsIgnoreCase(strings[j])){
-        //         System.out.println(!strings[i].equalsIgnoreCase(strings[j]));
-        //         System.out.println(strings[i]);
-        //         vect.add(i);
-        //     }
-        // }
-        // Object[][] retour = new Object[vect.size()][obj[0].length];
-        // System.out.println(retour.length);
-        // for (int i = 0; i < obj.length; i++) {
-        //     for (int j = 0; j < obj[0].length; j++) {
-        //         retour[i][j]= obj[(int) vect.get(i)][j];
-        //     }
-        // }
-        // return retour;
-        // liste d'entrée avec doublons
-        List<String> listWithDuplicates = new ArrayList<>(Arrays.asList(strings));
- 
-        // construit un ensemble à partir des éléments de la liste
-        Set<String> set = new LinkedHashSet<>(listWithDuplicates);
- 
-        // construit une nouvelle liste à partir d'un ensemble et l'affiche
-        List<String> listWithoutDuplicates = new ArrayList<>(set);
-        
-        System.out.println(listWithoutDuplicates);
+        Vector vect= new Vector();
+        for (int i = 0; i < strings.length; i++) {
+            int manisa=0;
+            for (int j = i+1; j < strings.length; j++) {
+                if(strings[i].equalsIgnoreCase(strings[j])){
+                    manisa++;
+                }
+            }
+            if(manisa==0){
+                vect.add(i);
+            }
+        }
+        Object[][] retour = new Object[vect.size()][obj[0].length];
+        for (int i = 0; i < retour.length; i++) {
+            for (int j = 0; j < obj[0].length; j++) {
+                retour[i][j]= obj[(int) vect.get(i)][j];
+            }
+        }
+        return retour;
     }
 
-    public void Afficher(Object[][] obj){
-        DeleteDoublons(obj);
-    //     // Object[][] rep= DeleteDoublons(obj);
-    //     // for (Object[] objects : rep) {
-    //     //     for (Object object : objects) {
-    //     //         System.out.print("| "+object+" |");
-    //     //     }
-    //     //     System.out.println();
-    //     // }
+    public void Afficher(Object[][] rep){
+        System.out.println("");
+        for (Object[] objects : rep) {
+            for (Object object : objects) {
+                System.out.print("| "+object+" |");
+            }
+            System.out.println();
+        }
     }
 
     public Object[][] Projection(Object[][] obj, String[] fields, String[] col) {
@@ -104,8 +74,9 @@ public class Fonction {
                 }
             }
         }
-        Afficher(rep);
-        return rep;
+        Object[][] retour= DeleteDoublons(rep);
+        Afficher(retour);
+        return retour;
     }
 
     public Object[][] Selection(Object[][] obj, String[] fields, String[] col, String[] condition, String[] ValCond) {
@@ -120,7 +91,6 @@ public class Fonction {
                             try {
                                 if (ValCond[i].equalsIgnoreCase(obj[k][j].toString())) {
                                     manisa++;
-                                    // System.out.println(obj[k][j]);
                                 }
                                 if (manisa == condition.length) {
                                     indice.add(k);
@@ -143,7 +113,9 @@ public class Fonction {
             rep = null;
             System.out.println("Verifier votre condition");
         }
-        return rep;
+        Object[][] retour= DeleteDoublons(rep);
+        Afficher(retour);
+        return retour;
     }
 
     public Object[][] Difference(Object[][] T1, String[] fields, Object[][] T2, String[] fields2) {
@@ -188,8 +160,9 @@ public class Fonction {
                 rep[i][j] = strings[j];
             }
         }
-        Afficher(rep);
-        return rep;
+        Object[][] retour= DeleteDoublons(rep);
+        Afficher(retour);
+        return retour;
     }
 
     public Object[][] Cartesien(Object[][] data1, Object[][] data2) throws Exception {
@@ -222,8 +195,9 @@ public class Fonction {
                 indLigneInfo2++;
             }
         }
-        Afficher(rep);
-        return rep;
+        Object[][] retour= DeleteDoublons(rep);
+        Afficher(retour);
+        return retour;
     }
 
     public Object[][] Division(Object[][] R1, String[] f1, String[] c1, Object[][] R2, String[] f2, String[] c2) throws Exception{
@@ -248,7 +222,10 @@ public class Fonction {
         System.out.println("____Difference____");
         System.out.println("|"+c2[0]+"|");
         Object[][] R8=Difference(R4, c2, R7, c2);
-        return R8;
+
+        Object[][] retour= DeleteDoublons(R8);
+        Afficher(retour);
+        return retour;
     }
 
     public Object[][] Jointure(Object[][] T1, String[] F1, Object[][] T2, String[] F2, String FCommune){
@@ -287,8 +264,9 @@ public class Fonction {
                 }
             }
         }
-        Afficher(rep);
-        return rep;
+        Object[][] retour= DeleteDoublons(rep);
+        Afficher(retour);
+        return retour;
     }   
 
     public Object[][] Union(Object[][] T1, String[] F1, Object[][] T2, String[] F2){
@@ -318,9 +296,11 @@ public class Fonction {
                     t++;
                 }
             }
-            Afficher(rep);
+            Object[][] retour= DeleteDoublons(rep);
+            Afficher(retour);
+            return retour;
         }
-        return rep;
+        return null;
     }
 
     public Object[][] Intersection(Object[][] T1, String[] F1, Object[][] T2, String[] F2){
@@ -354,8 +334,9 @@ public class Fonction {
                     rep[i][j]= T1[(int)v2.get(i)][j];
                 }
             }
-            Afficher(rep);
-            return rep;
+            Object[][] retour= DeleteDoublons(rep);
+            Afficher(retour);
+            return retour;
         }
         return null;
     }
