@@ -90,7 +90,7 @@ public class Grammaire {
                 for (int i = 0; i < names.length; i++) {
                     if(mots[1].equalsIgnoreCase(names[i]) && mots[2].equalsIgnoreCase("expect")){
                         for (int j = 0; j < names.length; j++) {
-                            if(mots[3].equalsIgnoreCase(names[j])){
+                            if(mots[3].equalsIgnoreCase(names[j]) && mots[4].equalsIgnoreCase("by")){
                                 File FT1 = new File("Database\\"+ mots[1] +".txt");
                                 Object[][] T1=read.ReadFichier(FT1);
                                 File FT1Col = new File("Database\\"+ mots[1] +"_Field.txt");
@@ -99,7 +99,7 @@ public class Grammaire {
                                 Object[][] T2=read.ReadFichier(FT2);
                                 File FT2Col = new File("Database\\"+ mots[3] +"_Field.txt");
                                 String[] T2Col=read.ColumName(FT2Col);
-                                // fonction.Difference(T1, T1Col, T2, T2Col);
+                                return fonction.Division(T1, T1Col, T1Col, T2, T2Col, T2Col);
                             }
                         }
                     }

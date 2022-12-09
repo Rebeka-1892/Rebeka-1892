@@ -1,3 +1,4 @@
-20%%Michou%%Feminin;
-18%%Minou%%Masculin;
-5%%Bouba%%Masculin;
+Bleu%%2%%Pizza;
+Violet%%3%%Tacos;
+Rose%%1%%Gratin;
+Vert%%5%%Ravitoto;

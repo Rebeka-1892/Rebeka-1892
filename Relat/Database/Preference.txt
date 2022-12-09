@@ -1,0 +1,6 @@
+1%%Gratin%%Rose;
+2%%Pizza%%Bleu;
+3%%Steak%%Jaune;
+4%%Frites%%Vert;
+5%%Poulet%%Gris;
+5%%Hotdog%%Blanc;

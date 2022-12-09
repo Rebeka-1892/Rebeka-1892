@@ -20,8 +20,8 @@ public class Main {
         // Union = "Show union between TableName1 and TableName2";
         // Intersection = "Show intersection between TableName1 and TableName2";
 
-        String sql= "Show union between Animal and Personne";
-        Grammaire grammaire = new Grammaire();
-        grammaire.ExecuteSql(sql);
+        // String sql= "Show intersection between Preference and Personne";
+        // Grammaire grammaire = new Grammaire();
+        // grammaire.ExecuteSql(sql);
     }
 }
